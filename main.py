@@ -109,9 +109,11 @@ def download_youtube(url, file_name = 'video', download_directory = '/videos', e
 
 def split_video(video_path, start_time, end_time):
     try:
-        video = VideoFileClip(video_path+'\\video.mp4')
+        video_path+='\\video.mp4'
+        video_path+='\\short.mp4'
+        video = VideoFileClip(video_path)
         segment_1 = video.subclip(start_time, end_time)
-        segment_1.write_videofile(video_path+'\\short.mp4')
+        segment_1.write_videofile(video_path)
         #PER JUNTAR CLIPS EN UN PER ARA NO MINTERESA
         # final_video = clips_array([[segment_1]])  # Add more segments as needed
         # final_video.write_videofile(video_path+'\\short1.mp4')
@@ -204,6 +206,7 @@ def overlay_video2(video_path):
         ffmpeg_object = ffmpeg.input(path_video)
         ffmpeg_object = ffmpeg_object.overlay(path_png, enable='between(t,4,7)')
         ffmpeg_object.output(video_path+'\\output.mp4').run()
+
 
 
     except Exception as error:
